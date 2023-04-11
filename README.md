@@ -1,1 +1,1 @@
-# Sneaker Shopping Website and Price Visualization Tool
+# Sneaker Shopping and Price Visualization Website
