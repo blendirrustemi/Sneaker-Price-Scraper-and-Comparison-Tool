@@ -1,1 +1,1 @@
-# Sneaker Price Scraper and Comparison Tool
+# Sneaker Shopping Website and Price Visualization Tool
