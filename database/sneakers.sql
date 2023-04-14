@@ -21,6 +21,12 @@ SET time_zone = "+00:00";
 -- Database: `sneakers`
 --
 
+drop database if exists sneakers;
+
+create database if not exists sneakers;
+
+use sneakers;
+-- SET SQL_SAFE_UPDATES = 0;
 -- --------------------------------------------------------
 
 --
@@ -28,9 +34,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `cart_items` (
-  `cart_id` int(11) NOT NULL,
-  `sneaker_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `cart_id` int NOT NULL,
+  `sneaker_id` int NOT NULL,
+  `quantity` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -40,8 +46,8 @@ CREATE TABLE `cart_items` (
 --
 
 CREATE TABLE `orders` (
-  `order_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `order_id` int NOT NULL,
+  `user_id` int NOT NULL,
   `order_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -52,9 +58,9 @@ CREATE TABLE `orders` (
 --
 
 CREATE TABLE `order_items` (
-  `order_id` int(11) NOT NULL,
-  `sneaker_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `order_id` int NOT NULL,
+  `sneaker_id` int NOT NULL,
+  `quantity` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -64,7 +70,7 @@ CREATE TABLE `order_items` (
 --
 
 CREATE TABLE `roles` (
-  `role_id` int(11) NOT NULL,
+  `role_id` int NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -75,8 +81,8 @@ CREATE TABLE `roles` (
 --
 
 CREATE TABLE `shopping_carts` (
-  `cart_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `cart_id` int NOT NULL,
+  `user_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -86,7 +92,7 @@ CREATE TABLE `shopping_carts` (
 --
 
 CREATE TABLE `sizes` (
-  `size_id` int(11) NOT NULL,
+  `size_id` int NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -97,7 +103,7 @@ CREATE TABLE `sizes` (
 --
 
 CREATE TABLE `sneakers` (
-  `sneaker_id` int(11) NOT NULL,
+  `sneaker_id` int NOT NULL,
   `brand` varchar(255) NOT NULL,
   `model` varchar(255) NOT NULL,
   `price` decimal(10,2) NOT NULL
@@ -110,8 +116,8 @@ CREATE TABLE `sneakers` (
 --
 
 CREATE TABLE `sneaker_sizes` (
-  `sneaker_id` int(11) NOT NULL,
-  `size_id` int(11) NOT NULL
+  `sneaker_id` int NOT NULL,
+  `size_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -121,7 +127,7 @@ CREATE TABLE `sneaker_sizes` (
 --
 
 CREATE TABLE `users` (
-  `user_id` int(11) NOT NULL,
+  `user_id` int NOT NULL,
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -135,8 +141,8 @@ CREATE TABLE `users` (
 --
 
 CREATE TABLE `user_roles` (
-  `user_id` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL
+  `user_id` int NOT NULL,
+  `role_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -217,37 +223,37 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `role_id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `shopping_carts`
 --
 ALTER TABLE `shopping_carts`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cart_id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sizes`
 --
 ALTER TABLE `sizes`
-  MODIFY `size_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `size_id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sneakers`
 --
 ALTER TABLE `sneakers`
-  MODIFY `sneaker_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sneaker_id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
