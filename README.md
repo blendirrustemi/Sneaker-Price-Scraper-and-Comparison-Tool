@@ -1,1 +1,13 @@
 # Sneaker Shopping and Price Visualization Website
+
+##	Anyone – Role 1
+###Main page – Sneakers
+###Visualization Page – Shows the difference of sneaker prices in graphs…
+###Signup/Login
+##User Profile – Role 2
+###Shopping Cart – Add/Remove Sneakers
+###Purchase Sneakers Page
+##Admin Page – Role 3
+###Manage Users
+###Manage Sneakers
+![image](https://user-images.githubusercontent.com/86692942/232538286-b9d00e24-cfff-4404-9bd2-7e38b73d5b0c.png)
