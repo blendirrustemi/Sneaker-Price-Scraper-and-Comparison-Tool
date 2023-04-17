@@ -135,7 +135,7 @@ CREATE TABLE `users` (
   `surname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `is_admin` tinyint NOT NULL DEFAULT 0
+  `is_admin` tinyint NOT NULL DEFAULT 0 COMMENT '0 - false, 1 - true'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
