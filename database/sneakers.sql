@@ -21,6 +21,12 @@ SET time_zone = "+00:00";
 -- Database: `sneakers`
 --
 
+drop database if exists sneakers;
+
+create database if not exists sneakers;
+
+use sneakers;
+-- SET SQL_SAFE_UPDATES = 0;
 -- --------------------------------------------------------
 
 --
