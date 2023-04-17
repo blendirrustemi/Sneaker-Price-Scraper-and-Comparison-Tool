@@ -107,8 +107,8 @@ CREATE TABLE `sizes` (
 
 CREATE TABLE `sneakers` (
   `sneaker_id` int NOT NULL,
-  `brand` varchar(255) NOT NULL,
   `model` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
   `price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

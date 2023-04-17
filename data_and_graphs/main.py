@@ -32,8 +32,7 @@ for page in range(1, 5):
 
 
 # sneakers_df = pd.json_normalize(res)
-#
-#
+
 #
 # sneakers_df.to_csv('Datasets/jordan_4.csv', index=True)
 #
