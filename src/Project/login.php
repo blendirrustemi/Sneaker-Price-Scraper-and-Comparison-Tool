@@ -95,7 +95,7 @@ session_destroy();
                             </div>
                             <div class="hr"></div>
                             <div class="foot-lnk">
-                                <label for="tab-1">Already a Member?</a>
+                                <label for="tab-1">Already a Member?</label>
                             </div>
                         </div>  
                     </form>

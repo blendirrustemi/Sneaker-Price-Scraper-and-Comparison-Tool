@@ -1,3 +1,10 @@
+<?php
+require_once '../../bootstrap.php';
+
+
+?>
+
+
 <nav>
     <div class="menu-btn">
         <div class="line line--1"></div>
