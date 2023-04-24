@@ -20,6 +20,10 @@ class UserService
         return $this->db->getUserByEmail($email);
     }
 
+    public function getUserByEmailAndPassword($email, $password) {
+        return $this->db->getUserByEmailAndPassword($email, $password);
+    }
+
     public function addUser($name, $surname, $email, $password) {
         return $this->db->addUser($name, $surname, $email, $password);
     }

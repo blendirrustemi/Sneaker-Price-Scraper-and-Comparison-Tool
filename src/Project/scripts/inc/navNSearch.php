@@ -1,9 +1,19 @@
 <?php
 require_once '../../bootstrap.php';
+global $userService;
+
+//$_SESSION['user_id'] = 3;
+$user_id = $_SESSION['user_id'];
+
+//$_SESSION['is_logged'] = 1;
+
+if ($user_id) {
+    $user_role = $userService->getUserRole($user_id);
+    $_SESSION['role'] = $user_role['role_name'];
+}
 
 
 ?>
-
 
 <nav>
     <div class="menu-btn">
@@ -16,8 +26,20 @@ require_once '../../bootstrap.php';
         <a href="featured.php" class="link">Featured</a>
         <a href="explore.php" class="link">Explore</a>
         <a href="about.php" class="link">About</a>
-        <a href="shoppingCart.php" class="link">My Shopping Cart</a>
-        <a href="profile.php" class="link">My Profile</a>
+        <?php
+        // This link is only shown to admin users
+        if ($_SESSION['role'] === 'Admin') {
+            echo '<a href="admin.php" class="link">Admin</a>';
+        }
+
+        if ($_SESSION['user_id']) {
+            echo '<a href="shoppingCart.php" class="link">My Shopping Cart</a>';
+            echo '<a href="profile.php" class="link">My Profile</a>';
+            echo '<a href="logout.php" class="link">Logout</a>';
+        } else {
+            echo '<a href="login.php" class="link">Login</a>';
+        }
+        ?>
     </div>
 </nav>
 <div id="searchContainer">

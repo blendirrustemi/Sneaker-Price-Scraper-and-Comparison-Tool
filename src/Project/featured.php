@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once '../../bootstrap.php';
 global $sneakerService;
@@ -23,8 +24,8 @@ if (!empty($sneakers)) {
 </head>
 <body>
 <?php
-  $path = './';
-  require $path . 'scripts/inc/navNSearch.php';
+    $path = './';
+    require $path . 'scripts/inc/navNSearch.php';
   ?>
     <div class="featuredMain">
         <h1 class="title">Featured</h1>

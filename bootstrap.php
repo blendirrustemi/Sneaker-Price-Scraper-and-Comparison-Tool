@@ -7,3 +7,4 @@ require_once 'src/business/UserService.php';
 
 $db = Database::getInstance();
 $sneakerService = new SneakerService($db);
+$userService = new UserService($db);
