@@ -2,12 +2,17 @@
 session_start();
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    require_once '../../bootstrap.php';
+    global $sneakerService;
     // Retrieve form data
     $id = $_GET["id"];
     $model = $_GET["model"];
     $image = $_GET["image"];
     $price = $_GET["price"];
     $incoming = "./" . $_GET["incoming"];
+
+    $resultSizes = $sneakerService->getSpecificSneaker($id);
+
 }else{
     header("Location: ./explore.php");
 }
@@ -22,24 +27,6 @@ if ($resultCheck->num_rows > 0) {
     $addToCartButton = '<button type="button" class="btn btn-success" id="alertToastBtn">Add To Cart!</button>';
 }
 
-// ----------------------------------------------
-
-require_once '../../bootstrap.php';
-global $sneakerService;
-$resultSizes = $sneakerService->getSpecificSneaker($id);
-
-//$sizes_query = sprintf("SELECT sizes.name
-//    FROM sneakers
-//    JOIN sneaker_sizes ON sneakers.sneaker_id = sneaker_sizes.sneaker_id
-//    JOIN sizes ON sneaker_sizes.size_id = sizes.size_id
-//    WHERE sneakers.sneaker_id = %d", $id);
-
-//print_r($resultSizes);
-
-//$resultSizes = $conn->query($sizes_query);
-//if (!empty($resultSizes)) {
-//    $_SESSION["sizes"] = $resultSizes;
-//}
 ?>
 <html lang="en">
 
@@ -178,11 +165,11 @@ $resultSizes = $sneakerService->getSpecificSneaker($id);
                             Size Chart
                           </button>)</p>
                             <div class="sizeChooser">';
-                        if(count($_SESSION["sizes"]) == 0){
+                        if(count($resultSizes) == 0){
                             echo '<p>There are no sizes available at the moment!</p>';
                         }else{
-                            for ($i = 0; $i < count($_SESSION["sizes"]); $i++) {
-                                $size = substr($_SESSION["sizes"][$i]['name'],3);
+                            for ($i = 0; $i < count($resultSizes); $i++) {
+                                $size = substr($resultSizes[$i]['name'],3);
                                 $labelClass = $i % 2 == 0 ? 'redBgLabel' : '';
                                 echo '
                                     <input type="radio" name="option" id="option'. $i .'">
