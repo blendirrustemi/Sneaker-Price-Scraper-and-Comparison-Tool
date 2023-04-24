@@ -1,15 +1,15 @@
-<?php 
-$conn = new mysqli("localhost", "root", "","SneakerStyleX");
-$sneakers = "SELECT * FROM sneakers";
-$result = $conn->query($sneakers);
-if ($result->num_rows >= 0) {
-    $sneakers = array();
-    while ($row = $result->fetch_assoc()) {
-        array_push($sneakers, $row);
-    }
+<?php
+
+require_once '../../bootstrap.php';
+global $sneakerService;
+
+$sneakers = $sneakerService->getAllSneakers();
+
+if (!empty($sneakers)) {
     $_SESSION["sneakers"] = $sneakers;
     shuffle($_SESSION["sneakers"]);
 }
+
 ?>
 <html lang="en">
 

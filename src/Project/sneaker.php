@@ -22,19 +22,24 @@ if ($resultCheck->num_rows > 0) {
     $addToCartButton = '<button type="button" class="btn btn-success" id="alertToastBtn">Add To Cart!</button>';
 }
 
-$sizes_query = sprintf("SELECT sizes.name
-    FROM sneakers
-    JOIN sneaker_sizes ON sneakers.sneaker_id = sneaker_sizes.sneaker_id
-    JOIN sizes ON sneaker_sizes.size_id = sizes.size_id
-    WHERE sneakers.sneaker_id = %d", $id);
-$resultSizes = $conn->query($sizes_query);
-if ($resultSizes->num_rows >= 0) {
-    $sizes = array();
-    while ($row = $resultSizes->fetch_assoc()) {
-        array_push($sizes, $row);
-    }
-    $_SESSION["sizes"] = $sizes;
-}
+// ----------------------------------------------
+
+require_once '../../bootstrap.php';
+global $sneakerService;
+$resultSizes = $sneakerService->getSpecificSneaker($id);
+
+//$sizes_query = sprintf("SELECT sizes.name
+//    FROM sneakers
+//    JOIN sneaker_sizes ON sneakers.sneaker_id = sneaker_sizes.sneaker_id
+//    JOIN sizes ON sneaker_sizes.size_id = sizes.size_id
+//    WHERE sneakers.sneaker_id = %d", $id);
+
+//print_r($resultSizes);
+
+//$resultSizes = $conn->query($sizes_query);
+//if (!empty($resultSizes)) {
+//    $_SESSION["sizes"] = $resultSizes;
+//}
 ?>
 <html lang="en">
 
