@@ -8,10 +8,10 @@ global $userService;
 global $shoppingCartService;
 
 if (isset($_SESSION["user"])) {
-    $user = $userService->getUserById($_SESSION["user"]["user_id"]);
+    $user = $userService->getUserById($_SESSION["user_id"]);
 }
 
-$items = $shoppingCartService->getShoppingCartItems($user["user_id"]);
+$items = $shoppingCartService->getShoppingCartItems($user['user_id']);
 $total_price = 0;
 
 foreach ($items as $item) {
@@ -49,6 +49,7 @@ foreach ($items as $item) {
     <tr>
         <th>Model</th>
         <th>Price</th>
+        <th>Size</th>
         <th>Quantity</th>
         <th>Action</th>
     </tr>
@@ -58,6 +59,7 @@ foreach ($items as $item) {
     <tr>
         <td><?=$item["model"]?></td>
         <td>$<?=$item['price']?></td>
+        <td><?=$item["size"]?></td>
         <td>#<?=$item['quantity']?></td>
         <td><button>Remove</button></td>
     </tr>
@@ -65,7 +67,7 @@ foreach ($items as $item) {
     </tbody>
     <tfoot>
     <tr>
-        <td colspan="3">Total:</td>
+        <td colspan="4">Total:</td>
         <td>$<?=$total_price?></td>
     </tr>
     </tfoot>

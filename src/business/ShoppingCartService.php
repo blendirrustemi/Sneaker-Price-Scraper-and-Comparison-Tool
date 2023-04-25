@@ -13,6 +13,10 @@ class ShoppingCartService
         return $this->db->getShoppingCartItems($user_id);
     }
 
+    public function addShoppingCartItem($user_id, $sneaker_id, $quantity, $size) {
+        return $this->db->addShoppingCartItem($user_id, $sneaker_id, $quantity, $size);
+    }
+
 
 
 }

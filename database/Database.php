@@ -123,7 +123,7 @@ class Database
 
     // Shopping cart table functions
     public function getShoppingCartItems($userId) {
-        $sql = "SELECT ci.cart_id, ci.sneaker_id, ci.quantity, s.model, s.price FROM cart_items ci
+        $sql = "SELECT ci.cart_id, ci.sneaker_id, ci.quantity, ci.size, s.model, s.price FROM cart_items ci
             JOIN shopping_carts sc ON ci.cart_id = sc.cart_id
             JOIN sneakers s ON ci.sneaker_id = s.sneaker_id
             WHERE sc.user_id = ?";
@@ -139,5 +139,27 @@ class Database
 
         return $cartItems;
     }
+
+    public function addShoppingCartItem($userId, $sneakerId, $quantity, $size) {
+        try {
+            $sql = "INSERT INTO shopping_carts (user_id) VALUES (?)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("i", $userId);
+            $stmt->execute();
+
+//            $cartId = $stmt->insert_id;
+//            $sql = "INSERT INTO cart_items (cart_id, sneaker_id, quantity, size) VALUES (?, ?, ?, ?)";
+//            $stmt = $this->conn->prepare($sql);
+//            $stmt->bind_param("iiii", $cartId, $sneakerId, $quantity, $size);
+//            $stmt->execute();
+
+            return $stmt->insert_id;
+        } catch (Exception $e) {
+            // Handle database errors here
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
+    }
+
 
 }

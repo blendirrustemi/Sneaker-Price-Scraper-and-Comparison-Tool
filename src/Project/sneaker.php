@@ -3,26 +3,47 @@ session_start();
 require_once '../../bootstrap.php';
 global $userService;
 global $sneakerService;
+global $shoppingCartService;
+
+if (isset($_POST["submit"])) {
+    $user_id = $_SESSION["user"]["user_id"];
+    $sneaker_id = $_POST["sneaker_id"];
+    $quantity = 1;
+    $size = $_POST["option"];
+
+//    echo "user_id: " . $user_id . "<br>";
+//    echo "sneaker_id: " . $sneaker_id . "<br>";
+//    echo "quantity: " . $quantity . "<br>";
+//    echo "size: " . $size . "<br>";
+
+    // convert all to integer
+    $user_id = (int)$user_id;
+    $sneaker_id = (int)$sneaker_id;
+
+    $cart = $shoppingCartService->addShoppingCartItem($user_id, $sneaker_id, $quantity, $size);
+} else {
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        // Retrieve form data
+        $id = $_GET["id"];
+        $model = $_GET["model"];
+        $image = $_GET["image"];
+        $price = $_GET["price"];
+        $incoming = "./" . $_GET["incoming"];
+
+        $resultSizes = $sneakerService->getSpecificSneaker($id);
+
+    }else{
+        header("Location: ./explore.php");
+    }
+}
 
 // Check if form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    // Retrieve form data
-    $id = $_GET["id"];
-    $model = $_GET["model"];
-    $image = $_GET["image"];
-    $price = $_GET["price"];
-    $incoming = "./" . $_GET["incoming"];
 
-    $resultSizes = $sneakerService->getSpecificSneaker($id);
-
-}else{
-    header("Location: ./explore.php");
-}
 
 $resultCheck = $userService->getUserByEmail($_SESSION['email']);
 
 if ($resultCheck) {
-    $addToCartButton = '<button type="button" class="btn btn-success">Add To Cart!</button>';
+    $addToCartButton = '<button type="submit" name="submit" class="btn btn-success">Add To Cart!</button>';
 }else{
     $addToCartButton = '<button type="button" class="btn btn-success" id="alertToastBtn">Add To Cart!</button>';
 }
@@ -154,6 +175,7 @@ if ($resultCheck) {
                     echo '<img class="sneakerImg" src="'. $image .'">';
                 ?>
             </div>
+            <form method="POST" action="">
             <div class="sneakerSide">
                 <?php
                     echo '
@@ -172,7 +194,7 @@ if ($resultCheck) {
                                 $size = substr($resultSizes[$i]['name'],3);
                                 $labelClass = $i % 2 == 0 ? 'redBgLabel' : '';
                                 echo '
-                                    <input type="radio" name="option" id="option'. $i .'">
+                                    <input type="radio" name="option" id="option'. $i .'" value="'. $size .'">
                                     <label for="option'. $i .'" class="'. $labelClass .'">'. $size .'</label>
                                 ';
                             }
@@ -181,13 +203,19 @@ if ($resultCheck) {
                             </div>
                         </div>
                         <h5 class="pt-5">Sneaker Price: $'. $price .'</h5>
+                        
                         <div class="pt-4">
                             '. $addToCartButton .'
                             <a class="btn btn-danger" href="'. $incoming .'">Take Me Back!</a>
                         </div>
+                        <input type="hidden" name="sneaker_id" value="'. $id .'">
+                        <input type="hidden" name="size" value="'. $size .'">
+                        <input type="hidden" name="sneaker_id" value="'. $id .'">
                     ';
                 ?>
             </div>
+            </form>
+
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

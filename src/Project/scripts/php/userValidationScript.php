@@ -21,6 +21,7 @@ if ($result) {
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
     session_start();
+    $_SESSION['user'] = $result;
     $_SESSION['user_id'] = $result['user_id'];
     $_SESSION['email'] = $email;
     header("Location: ../../home.php");
