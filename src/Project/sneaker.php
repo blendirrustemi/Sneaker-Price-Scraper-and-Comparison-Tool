@@ -1,9 +1,11 @@
 <?php
 session_start();
+require_once '../../bootstrap.php';
+global $userService;
+global $sneakerService;
+
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    require_once '../../bootstrap.php';
-    global $sneakerService;
     // Retrieve form data
     $id = $_GET["id"];
     $model = $_GET["model"];
@@ -17,11 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     header("Location: ./explore.php");
 }
 
-$conn = new mysqli("localhost", "root", "","SneakerStyleX");
+$resultCheck = $userService->getUserByEmail($_SESSION['email']);
 
-$checkSessionQuery = sprintf("SELECT * FROM users WHERE email = '%s'", $_SESSION['email']);
-$resultCheck = $conn->query($checkSessionQuery);
-if ($resultCheck->num_rows > 0) {
+if ($resultCheck) {
     $addToCartButton = '<button type="button" class="btn btn-success">Add To Cart!</button>';
 }else{
     $addToCartButton = '<button type="button" class="btn btn-success" id="alertToastBtn">Add To Cart!</button>';

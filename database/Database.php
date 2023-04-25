@@ -119,4 +119,25 @@ class Database
         return $result->fetch_assoc();
     }
 
+
+
+    // Shopping cart table functions
+    public function getShoppingCartItems($userId) {
+        $sql = "SELECT ci.cart_id, ci.sneaker_id, ci.quantity, s.model, s.price FROM cart_items ci
+            JOIN shopping_carts sc ON ci.cart_id = sc.cart_id
+            JOIN sneakers s ON ci.sneaker_id = s.sneaker_id
+            WHERE sc.user_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $cartItems = array();
+        while ($row = $result->fetch_assoc()) {
+            array_push($cartItems, $row);
+        }
+
+        return $cartItems;
+    }
+
 }
