@@ -24,6 +24,12 @@ if (isset($_POST["submit"])) {
     $sneaker_id = (int)$sneaker_id;
     $cart = $shoppingCartService->addShoppingCartItem($user_id, $sneaker_id, $quantity, $size);
 
+    if (!$cart) {
+        header("Location: ./shoppingCart.php");
+    } else {
+        echo "Error!";
+    }
+
 
 } else {
 //    if ($_SERVER["REQUEST_METHOD"] == "GET") {

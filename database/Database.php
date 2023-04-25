@@ -152,7 +152,7 @@ class Database
             $cartId = $stmt->insert_id;
             $sql = "INSERT INTO cart_items (cart_id, sneaker_id, quantity, size) VALUES (?, ?, ?, ?)";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("iiii", $cartId, $sneakerId, $quantity, $size);
+            $stmt->bind_param("iiis", $cartId, $sneakerId, $quantity, $size);
             $stmt->execute();
 
             return $stmt->insert_id;
@@ -162,8 +162,5 @@ class Database
             return false;
         }
     }
-
-
-
 
 }
