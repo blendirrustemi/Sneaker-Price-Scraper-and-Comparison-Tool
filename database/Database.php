@@ -140,6 +140,8 @@ class Database
         return $cartItems;
     }
 
+
+
     public function addShoppingCartItem($userId, $sneakerId, $quantity, $size) {
         try {
             $sql = "INSERT INTO shopping_carts (user_id) VALUES (?)";
@@ -147,11 +149,11 @@ class Database
             $stmt->bind_param("i", $userId);
             $stmt->execute();
 
-//            $cartId = $stmt->insert_id;
-//            $sql = "INSERT INTO cart_items (cart_id, sneaker_id, quantity, size) VALUES (?, ?, ?, ?)";
-//            $stmt = $this->conn->prepare($sql);
-//            $stmt->bind_param("iiii", $cartId, $sneakerId, $quantity, $size);
-//            $stmt->execute();
+            $cartId = $stmt->insert_id;
+            $sql = "INSERT INTO cart_items (cart_id, sneaker_id, quantity, size) VALUES (?, ?, ?, ?)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("iiii", $cartId, $sneakerId, $quantity, $size);
+            $stmt->execute();
 
             return $stmt->insert_id;
         } catch (Exception $e) {
@@ -160,6 +162,8 @@ class Database
             return false;
         }
     }
+
+
 
 
 }

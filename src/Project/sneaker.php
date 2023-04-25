@@ -5,36 +5,40 @@ global $userService;
 global $sneakerService;
 global $shoppingCartService;
 
+// Retrieve form data
+$id = $_GET["id"];
+$model = $_GET["model"];
+$image = $_GET["image"];
+$price = $_GET["price"];
+$incoming = "./" . $_GET["incoming"];
+$resultSizes = $sneakerService->getSpecificSneaker($id);
+
 if (isset($_POST["submit"])) {
     $user_id = $_SESSION["user"]["user_id"];
     $sneaker_id = $_POST["sneaker_id"];
     $quantity = 1;
     $size = $_POST["option"];
 
-//    echo "user_id: " . $user_id . "<br>";
-//    echo "sneaker_id: " . $sneaker_id . "<br>";
-//    echo "quantity: " . $quantity . "<br>";
-//    echo "size: " . $size . "<br>";
-
     // convert all to integer
     $user_id = (int)$user_id;
     $sneaker_id = (int)$sneaker_id;
-
     $cart = $shoppingCartService->addShoppingCartItem($user_id, $sneaker_id, $quantity, $size);
+
+
 } else {
-    if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        // Retrieve form data
-        $id = $_GET["id"];
-        $model = $_GET["model"];
-        $image = $_GET["image"];
-        $price = $_GET["price"];
-        $incoming = "./" . $_GET["incoming"];
-
-        $resultSizes = $sneakerService->getSpecificSneaker($id);
-
-    }else{
-        header("Location: ./explore.php");
-    }
+//    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+//        // Retrieve form data
+//        $id = $_GET["id"];
+//        $model = $_GET["model"];
+//        $image = $_GET["image"];
+//        $price = $_GET["price"];
+//        $incoming = "./" . $_GET["incoming"];
+//
+//        $resultSizes = $sneakerService->getSpecificSneaker($id);
+//
+//    }else{
+//        header("Location: ./explore.php");
+//    }
 }
 
 // Check if form is submitted
