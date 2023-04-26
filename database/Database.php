@@ -211,17 +211,7 @@ class Database
 
     public function addShoppingCartItem($userId, $sneakerId, $quantity, $size) {
         try {
-            // Check if the user already has an active shopping cart
-//            $sql = "SELECT cart_id FROM shopping_carts WHERE user_id = ?";
-//            $stmt = $this->conn->prepare($sql);
-//            $stmt->bind_param("i", $userId);
-//            $stmt->execute();
-//            $result = $stmt->get_result();
-//            $cartId = null;
-//            if ($result->num_rows > 0) {
-//                $cartId = $result->fetch_assoc()['cart_id'];
-//            } else {
-//                // If user does not have an active shopping cart, create a new one
+//       If user does not have an active shopping cart, create a new one
                 $sql = "INSERT INTO shopping_carts (user_id) VALUES (?)";
                 $stmt = $this->conn->prepare($sql);
                 $stmt->bind_param("i", $userId);
@@ -275,25 +265,8 @@ class Database
 
 
 
-
-
-
     public function removeShoppingCartItem($userId, $sneakerId, $size) {
         try {
-            // Get the user's active shopping cart
-//            $sql = "SELECT cart_id FROM shopping_carts WHERE user_id = ?";
-//            $stmt = $this->conn->prepare($sql);
-//            $stmt->bind_param("i", $userId);
-//            $stmt->execute();
-//            $result = $stmt->get_result();
-//            $cartId = null;
-//            if ($result->num_rows > 0) {
-//                $cartId = $result->fetch_assoc()['cart_id'];
-//            } else {
-//                // User does not have an active shopping cart
-//                return false;
-//            }
-
             // Get the current quantity of the sneaker in the shopping cart
             $sql = "SELECT * FROM cart_items WHERE sneaker_id = ? AND size = ?";
             $stmt = $this->conn->prepare($sql);
@@ -330,6 +303,51 @@ class Database
     }
 
 
+    public function addOrder($userId, $sneakers) {
+        // Prepare the INSERT statement for the orders table
+        $stmt = $this->conn->prepare("INSERT INTO orders (user_id, order_date) VALUES (?, CURRENT_TIMESTAMP)");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+
+        // Get the generated order_id
+        $order_id = $this->conn->insert_id;
+
+        // Prepare the INSERT statement for the order_items table
+        $stmt = $this->conn->prepare("INSERT INTO order_items (order_id, sneaker_id, quantity) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity)");
+
+        // Insert each sneaker into the order_items table
+        foreach ($sneakers as $sneaker) {
+            $sneaker_id = $sneaker['sneaker_id'];
+            $quantity = $sneaker['quantity'];
+            $stmt->bind_param("iii", $order_id, $sneaker_id, $quantity);
+            $stmt->execute();
+        }
+
+        $deleteCartItemsQuery = "DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM shopping_carts WHERE user_id = ?)";
+        $deleteCartQuery = "DELETE FROM shopping_carts WHERE user_id = ?";
+
+        $stmt = $this->conn->prepare($deleteCartItemsQuery);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $stmt->close();
+
+        $stmt = $this->conn->prepare($deleteCartQuery);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+
+        $stmt->close();
+
+    }
+
+    public function getOrder($userId) {
+        $sql = "SELECT * FROM orders WHERE user_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $order = $result->fetch_assoc();
+        return $order;
+    }
 
 
 
