@@ -7,14 +7,23 @@ global $sneakerService;
 global $shoppingCartService;
 global $userService;
 
+$users = $userService->getAllUsers();
+$sneakers = $sneakerService->getAllSneakers();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['remove_user'])){
-        $user_email = $_POST['user_email'];
-        $user_id = $userService->getUserByEmail($user_email)['user_id'];
 
-        $deleted_user = $userService->removeUser($user_id);
-    }
+if (isset($_POST['remove_user'])){
+    $user_email = $_POST['user_email'];
+    $user_id = $userService->getUserByEmail($user_email)['user_id'];
+
+    $deleted_user = $userService->removeUser($user_id);
+}
+
+if (isset($_POST['remove_sneaker'])) {
+    $model = $_POST['sneaker_remove_model'];
+    $sneaker_id = $sneakerService->getSneakersbyModel($model)['sneaker_id'];
+
+    $removed_sneaker = $sneakerService->removeSneakers($sneaker_id);
+
 }
 ?>
 
@@ -47,13 +56,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <label for="sneaker_image">Sneaker Image:</label>
     <input type="file" name="sneaker_image" id="sneaker_image" accept="image/*" required>
 
-    <button type="submit">Add Sneaker</button>
+    <button type="submit" name="add_sneaker" id="add_sneaker">Add Sneaker</button>
 </form>
 
 <form method="POST" action="">
     <label for="sneaker_remove_model">Sneaker Model:</label>
     <input type="text" name="sneaker_remove_model" id="sneaker_remove_model" required>
-    <button type="submit">Remove Sneaker</button>
+    <button type="submit" name="remove_sneaker" id="remove_sneaker">Remove Sneaker</button>
 </form>
 
 <script>

@@ -55,6 +55,11 @@ class Database
         return $result->fetch_assoc();
     }
 
+    public function getSneakersbyModel($model) {
+        $result = $this->query("SELECT * FROM sneakers WHERE model = ?", [$model]);
+        return $result->fetch_assoc();
+    }
+
     public function getSpecificSneaker($id) {
         $result = $this->query("SELECT sizes.name FROM sneakers JOIN sneaker_sizes ON sneakers.sneaker_id = sneaker_sizes.sneaker_id JOIN sizes ON sneaker_sizes.size_id = sizes.size_id WHERE sneakers.sneaker_id = ?", [$id]);
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -66,6 +71,41 @@ class Database
         $stmt->close();
 
         return $id;
+    }
+
+//    public function removeSneakers($id) {
+//        $this->conn->query("SET FOREIGN_KEY_CHECKS = 0"); // Disable foreign key checks
+//
+//        $stmt = $this->conn->prepare("DELETE FROM sneakers WHERE sneaker_id = ?");
+//        $stmt->bind_param("i", $id);
+//        $stmt->execute();
+//
+//        $this->conn->query("SET FOREIGN_KEY_CHECKS = 1"); // Enable foreign key checks
+//    }
+
+
+    public function removeSneakers($id) {
+        $this->conn->query("SET FOREIGN_KEY_CHECKS = 0"); // Disable foreign key checks
+
+        $stmt1 = $this->conn->prepare("DELETE FROM sneakers WHERE sneaker_id = ?");
+        $stmt1->bind_param("i", $id);
+        $stmt1->execute();
+
+        $stmt2 = $this->conn->prepare("DELETE FROM sneaker_sizes WHERE sneaker_id = ?");
+        $stmt2->bind_param("i", $id);
+        $stmt2->execute();
+
+        $stmt3 = $this->conn->prepare("
+        DELETE cart_items, shopping_carts
+        FROM cart_items
+        INNER JOIN shopping_carts ON cart_items.cart_id = shopping_carts.cart_id
+        WHERE cart_items.sneaker_id = ?
+    ");
+        $stmt3->bind_param("i", $id);
+        $stmt3->execute();
+
+        $this->conn->query("SET FOREIGN_KEY_CHECKS = 1"); // Enable foreign key checks
+
     }
 
 
@@ -120,7 +160,7 @@ class Database
     }
 
     public function removeUser($user_id) {
-        $this->conn->query("SET FOREIGN_KEY_CHECKS = 0");
+        $this->conn->query("SET FOREIGN_KEY_CHECKS = 0"); // Disable foreign key checks
 //        $stmt = $this->conn->prepare("DELETE FROM orders WHERE user_id = ?");
 //        $stmt->bind_param("i", $user_id);
 //        $stmt->execute();
