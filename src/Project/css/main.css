@@ -19,7 +19,25 @@
 }
 
 /* General CSS Rulesets */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--red);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b30000;
+    cursor: pointer;
+}
 body {
+    overflow-x: hidden;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -89,15 +107,13 @@ a {
 }
 
 #searchContainer #search {
-    position: absolute;
+    position: fixed;
     margin-right: 0px;
-    margin: auto;
+    margin: 15px;
     top: 0;
     right: 0;
-    bottom: 0;
-    left: 0;
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     background: var(--red);
     border-radius: 50%;
     transition: all 1s;
@@ -113,10 +129,10 @@ a {
     content: "";
     position: absolute;
     margin: auto;
-    top: 22px;
+    top: 12px;
     right: 0;
     bottom: 0;
-    left: 22px;
+    left: 12px;
     width: 12px;
     height: 2px;
     background: white;
@@ -132,8 +148,8 @@ a {
     right: 0;
     bottom: 0;
     left: -5px;
-    width: 25px;
-    height: 25px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     border: 2px solid white;
     transition: all .5s;
@@ -470,9 +486,9 @@ a {
     width: 100%;
     height: 100%;
     background: linear-gradient(120deg,
-            transparent,
-            rgba(248, 146, 146, 0.4),
-            transparent);
+    transparent,
+    rgba(248, 146, 146, 0.4),
+    transparent);
     transition: all 650ms;
 }
 
@@ -486,7 +502,7 @@ a {
 nav {
     z-index: 1000;
     overflow: hidden;
-    position: absolute;
+    position: fixed;
     transform: translateX(-300px);
     height: 100%;
     width: 400px;
@@ -621,14 +637,14 @@ nav .nav-links .link:hover {
     font-size: calc(1em + 12vw);
     font-weight: 900;
     text-shadow:
-        -0.0075em 0.0075em 0 rgba(237, 17, 17, 0.94),
-        0.005em 0.005em 0 rgba(0, 0, 0, 0.60),
-        0.01em 0.01em 0 rgba(0, 0, 0, 0.62),
-        0.015em 0.015em 0 rgba(0, 0, 0, 0.62),
-        0.02em 0.02em 0 rgba(237, 17, 17, 0.60),
-        0.025em 0.025em 0 rgba(237, 17, 17, 0.58),
-        0.03em 0.03em 0 rgba(0, 0, 0, 0.56),
-        0.035em 0.035em 0 rgba(237, 17, 17, 0.54);
+            -0.0075em 0.0075em 0 rgba(237, 17, 17, 0.94),
+            0.005em 0.005em 0 rgba(0, 0, 0, 0.60),
+            0.01em 0.01em 0 rgba(0, 0, 0, 0.62),
+            0.015em 0.015em 0 rgba(0, 0, 0, 0.62),
+            0.02em 0.02em 0 rgba(237, 17, 17, 0.60),
+            0.025em 0.025em 0 rgba(237, 17, 17, 0.58),
+            0.03em 0.03em 0 rgba(0, 0, 0, 0.56),
+            0.035em 0.035em 0 rgba(237, 17, 17, 0.54);
 }
 
 /* End Home CSS */
@@ -679,7 +695,7 @@ nav .nav-links .link:hover {
 /* Featured CSS */
 
 .featuredMain {
-    background-color: white;
+    color: white;
     width: 100vw;
     min-height: 100vh;
     display: flex;
@@ -950,12 +966,12 @@ nav .nav-links .link:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
+    padding: 5rem;
 }
 
 .sneakerChild {
     width: 90%;
-    min-height: 100vh;
+    min-height: 80vh;
     padding: 2rem;
     display: flex;
     justify-content: center;
@@ -965,8 +981,12 @@ nav .nav-links .link:hover {
     border-radius: 50px;
     box-shadow: 0 0 30px var(--red);
 }
-
+#addToCartForm{
+    padding: 0 !important;
+    margin: 0;
+}
 .sneakerSide {
+    max-width: 550px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -981,10 +1001,13 @@ nav .nav-links .link:hover {
 }
 
 .sneakerImg {
-    max-width: 90%;
+    width: 90%;
+    max-width: 450px !important;
 }
 
 .forSneakerImg {
+    width: 90%;
+    max-width: 450px !important;
     flex-basis: 50%;
     display: flex;
     justify-content: center;
@@ -992,7 +1015,10 @@ nav .nav-links .link:hover {
 
 .sneakerSide * {
     font-family: 'Roboto', sans-serif;
-    padding-top: 1rem;
+}
+.sneakerButtons{
+    display: flex;
+    justify-content: space-between;
 }
 
 .sizeChooser {
@@ -1115,11 +1141,11 @@ tr:nth-child(even) {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, .7);
+    background: rgba(0, 0, 0, .8);
     border-top-right-radius: 25px;
     border-top-left-radius: 25px;
 }
-.myProfileForm{
+#myProfileForm{
     color: var(--white);
     font-family: var(--roboto);
     width: 250px;
@@ -1128,10 +1154,22 @@ tr:nth-child(even) {
     justify-content: center;
     align-items: flex-start;
 }
-.myProfileForm *{
+#myProfileFormChangePass{
+    color: var(--white);
+    font-family: var(--roboto);
+    width: 250px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#myProfileForm *,
+#myProfileFormChangePass *{
     margin: 5px 0 5px 0;
 }
-.myProfileForm input{
+#myProfileForm input,
+#myProfileFormChangePass input{
     font-family: var(--roboto);
     color: var(--white);
     width: 100%;
@@ -1141,8 +1179,10 @@ tr:nth-child(even) {
     border-bottom: 1px solid var(--red);
     outline: none;
     padding: 8px 8px 0 8px;
+    cursor: default;
 }
-.profileButtons{
+
+#profileButtons{
     border-bottom-right-radius: 25px;
     border-bottom-left-radius: 25px;
     display: flex;
@@ -1150,9 +1190,120 @@ tr:nth-child(even) {
     background: rgba(0, 0, 0, .7);
     padding: 2rem;
 }
+#goBackBtn{
+    display: none;
+}
 
 
 /* End Profile CSS */
+
+/* Redirector CSS */
+
+.redirectorMain{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #00000099;
+    color: var(--white);
+    font-size: xx-large;
+    font-family: var(--roboto);
+}
+.redirectorMain div *{
+    padding: 0.5rem;
+}
+.redirectorMain div h1{
+    color: var(--red);
+}
+#timer{
+    color: var(--red) !important;
+}
+
+/* End Redirector CSS */
+
+/* Shopping Cart CSS */
+
+.cartMain{
+    width: 100%;
+    min-height: 100vh;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.cartHeader{
+    width: 90%;
+    max-width: 800px;
+    background-color: var(--red);
+    color: white;
+    font-family: var(--iceland);
+    border-radius: 25px;
+    background-repeat: no-repeat;
+    background: url('../media/loginBg.jpeg');
+    background-size: cover;
+    background-position: center;
+
+}
+.header{
+    width: 100%;
+    background-color: rgba(0, 0, 0, .7);
+    color: var(--red);
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 25px;
+    border: 1px solid var(--red);
+}
+.cartItems{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    align-content: stretch;
+    width: 90%;
+    max-width: 800px;
+
+}
+.cartItem{
+    background-color: rgba(255, 255, 255, .9);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    border: 1px solid var(--red);
+    border-radius: 25px;
+    margin: .5rem;
+    box-shadow: 0 0 10px var(--red);
+}
+.cartItem img{
+    max-width: 50%;
+    border-right: 1px double var(--red);
+}
+.cartItem div{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.cartItem div *{
+    font-family: var(--roboto);
+    padding: 0.4rem;
+    margin: 0;
+}
+.cartItem div h3{
+    font-family: var(--iceland);
+}
+.removeBtn{
+    align-self: flex-end;
+    margin: 0 .7rem 0.4rem 0 !important;
+}
+
+
+/* End Shopping Cart CSS */
 
 /* CSS Rulesets for Small Screens */
 @media only screen and (max-width: 600px) {
@@ -1179,6 +1330,29 @@ tr:nth-child(even) {
     .sneakerSide {
         flex-basis: 100%;
     }
+    .redirectorMain{
+        font-size: large;
+    }
+
+    .sneakerSide * {
+        padding-top: 0;
+    }
+    .sneakerButtons *{
+        flex-basis: 50%;
+        padding: 3px !important;
+        margin: 2px;
+    }
+    .cartItem *{
+        font-size: small;
+        padding: 0.2rem !important;
+    }
+    .removeBtn{
+        font-size: small !important;
+    }
+    .header{
+        display: inline;
+
+    }
 
 }
 
@@ -1200,5 +1374,8 @@ tr:nth-child(even) {
 
     .sneakerMain {
         padding: 0.4rem;
+    }
+    .sneakerBody{
+        padding: 1rem;
     }
 }

@@ -27,51 +27,42 @@ foreach ($items as $item) {
     <title>Shopping Cart</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            text-align: left;
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+    <link rel="icon" href="./media/icon.png">
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
-<body>
-<h1>Shopping Cart</h1>
-<table>
-    <thead>
-    <tr>
-        <th>Model</th>
-        <th>Price</th>
-        <th>Size</th>
-        <th>Quantity</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($items as $item): ?>
-    <tr>
-        <td><?=$item["model"]?></td>
-        <td>$<?=$item['price']?></td>
-        <td><?=$item["size"]?></td>
-        <td>#<?=$item['quantity']?></td>
-        <td><button>Remove</button></td>
-    </tr>
-    <?php endforeach; ?>
-    </tbody>
-    <tfoot>
-    <tr>
-        <td colspan="4">Total:</td>
-        <td>$<?=$total_price?></td>
-    </tr>
-    </tfoot>
-</table>
-<button>Checkout</button>
+<body class="bgBody">
+<?php
+$path = './';
+require $path . 'scripts/inc/navNSearch.php';
+?>
+<div class="cartMain">
+    <div class="cartHeader">
+        <div class="header">
+            <h1>My Shopping Cart :</h1>
+        </div>
+    </div>
+    <div class="cartItems mt-1">
+        <?php foreach ($items as $item): ?>
+            <div class="cartItem">
+                <img src="<?=$item["image"]?>" width="200px">
+                <div>
+                    <h3><?=$item["model"]?></h3>
+                    <p>Price: $<?=$item['price']?></p>
+                    <p>Size: <?=$item["size"]?></p>
+                    <p>Quantity: <?=$item['quantity']?></p>
+                    <button class="btn btn-danger removeBtn">Remove</button>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+    <div class="cartHeader">
+        <div class="header">
+            <h1>Your Total: $<?=$total_price?></h1>
+            <button class="btn btn-success">Checkout</button>
+        </div>
+    </div>
+</div>
+<script src="./scripts/js/script.js"></script>
 </body>
 </html>

@@ -22,23 +22,23 @@ if (!empty($sneakers)) {
     <link rel="stylesheet" href="css/main.css">
     <title>Featured Sneakers</title>
 </head>
-<body>
+<body class="bgBody">
 <?php
-    $path = './';
-    require $path . 'scripts/inc/navNSearch.php';
-  ?>
-    <div class="featuredMain">
-        <h1 class="title">Featured</h1>
-        <p class="subtitle">Hot Shoes Right Now</p>
-        <div class="featuredChild">
+$path = './';
+require $path . 'scripts/inc/navNSearch.php';
+?>
+<div class="featuredMain">
+    <h1 class="title">Featured</h1>
+    <p class="subtitle">Hot Shoes Right Now</p>
+    <div class="featuredChild">
         <?php
-            if (count($_SESSION["sneakers"]) == 0) {
-                echo "<h3>There are currently no sneakers!</h3>";
+        if (count($_SESSION["sneakers"]) == 0) {
+            echo "<h3>There are currently no sneakers!</h3>";
 
-            } else {
-                $randomSneakers = array_slice($_SESSION["sneakers"], 0, 3);
-                for ($i = 0; $i < count($randomSneakers); $i++) {
-                    echo '
+        } else {
+            $randomSneakers = array_slice($_SESSION["sneakers"], 0, 3);
+            for ($i = 0; $i < count($randomSneakers); $i++) {
+                echo '
                     <section class="card">
                     <div class="product-image">
                       <img src="' . $randomSneakers[$i]["image"] . '" alt="' . $randomSneakers[$i]["model"] . '" draggable="false" />
@@ -65,12 +65,12 @@ if (!empty($sneakers)) {
                       </button>
                     </div>
                   </section>';
-                }
             }
-            ?>
-        </div>
+        }
+        ?>
     </div>
-    <script src="scripts/js/script.js"></script>
+</div>
+<script src="scripts/js/script.js"></script>
 </body>
 
 </html>
