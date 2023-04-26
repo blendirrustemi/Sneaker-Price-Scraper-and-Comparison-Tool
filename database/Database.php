@@ -65,23 +65,14 @@ class Database
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function addSneakers($model, $image, $price){
-        $stmt = $this->query("INSERT INTO sneakers (model, image, price) VALUES (?, ?, ?)", [$model, $image, $price]);
+    public function addSneakers($model, $image, $price) {
+        $stmt = $this->conn->prepare("INSERT INTO sneakers (model, image, price) VALUES (?, ?, ?)");
+        $stmt->bind_param("ssd", $model, $image, $price);
+        $stmt->execute();
         $id = $this->conn->insert_id;
-        $stmt->close();
 
         return $id;
     }
-
-//    public function removeSneakers($id) {
-//        $this->conn->query("SET FOREIGN_KEY_CHECKS = 0"); // Disable foreign key checks
-//
-//        $stmt = $this->conn->prepare("DELETE FROM sneakers WHERE sneaker_id = ?");
-//        $stmt->bind_param("i", $id);
-//        $stmt->execute();
-//
-//        $this->conn->query("SET FOREIGN_KEY_CHECKS = 1"); // Enable foreign key checks
-//    }
 
 
     public function removeSneakers($id) {

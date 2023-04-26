@@ -25,6 +25,23 @@ if (isset($_POST['remove_sneaker'])) {
     $removed_sneaker = $sneakerService->removeSneakers($sneaker_id);
 
 }
+
+if (isset($_POST['add_sneaker'])) {
+    $model = $_POST['sneaker_model'];
+    $price = $_POST['sneaker_price'];
+    $image = $_FILES['sneaker_image']['name'];
+
+    $img_path = "media/".basename($image);
+
+
+//    print_r("Model: $model");
+//    print_r("Price: $price");
+//    print_r("Image: $img_path");
+    $added_sneaker = $sneakerService->addSneakers($model, $img_path, $price);
+
+    print_r("SNEAKER ID: $added_sneaker");
+
+}
 ?>
 
 
