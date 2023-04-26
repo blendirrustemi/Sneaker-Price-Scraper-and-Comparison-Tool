@@ -19,7 +19,12 @@ foreach ($items as $item) {
 }
 
 if (isset($_POST['sneaker_id'])){
-    print_r($items);
+    $user_id = $_SESSION["user"]["user_id"];
+    $sneaker_id = $_POST["sneaker_id"];
+    $size = $_POST["sneaker_size"];
+//    echo "user_id: " . $user_id . " sneaker_id: " . $sneaker_id . " size: " . $size;
+    $shoppingCartService->removeShoppingCartItem($user_id, $sneaker_id, $size);
+    header("Location: ./shoppingCart.php");
 }
 ?>
 
@@ -57,6 +62,7 @@ require $path . 'scripts/inc/navNSearch.php';
                         <p>Size: <?=$item["size"]?></p>
                         <p>Quantity: <?=$item['quantity']?></p>
                         <input type="hidden" name="sneaker_id" value="<?=$item['sneaker_id']?>">
+                        <input type="hidden" name="sneaker_size" value="<?=$item['size']?>">
                         <button class="btn btn-danger removeBtn">Remove</button>
                     </div>
                 </div>

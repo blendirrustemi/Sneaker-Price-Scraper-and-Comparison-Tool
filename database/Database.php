@@ -200,28 +200,6 @@ class Database
     }
 
 
-
-//    public function addShoppingCartItem($userId, $sneakerId, $quantity, $size) {
-//        try {
-//            $sql = "INSERT INTO shopping_carts (user_id) VALUES (?)";
-//            $stmt = $this->conn->prepare($sql);
-//            $stmt->bind_param("i", $userId);
-//            $stmt->execute();
-//
-//            $cartId = $stmt->insert_id;
-//            $sql = "INSERT INTO cart_items (cart_id, sneaker_id, quantity, size) VALUES (?, ?, ?, ?)";
-//            $stmt = $this->conn->prepare($sql);
-//            $stmt->bind_param("iiis", $cartId, $sneakerId, $quantity, $size);
-//            $stmt->execute();
-//
-//            return $stmt->insert_id;
-//        } catch (Exception $e) {
-//            // Handle database errors here
-//            echo "Error: " . $e->getMessage();
-//            return false;
-//        }
-//    }
-
     public function addShoppingCartItem($userId, $sneakerId, $quantity, $size) {
         try {
             // Check if the user already has an active shopping cart
@@ -285,6 +263,63 @@ class Database
             return false;
         }
     }
+
+
+
+
+
+
+    public function removeShoppingCartItem($userId, $sneakerId, $size) {
+        try {
+            // Get the user's active shopping cart
+//            $sql = "SELECT cart_id FROM shopping_carts WHERE user_id = ?";
+//            $stmt = $this->conn->prepare($sql);
+//            $stmt->bind_param("i", $userId);
+//            $stmt->execute();
+//            $result = $stmt->get_result();
+//            $cartId = null;
+//            if ($result->num_rows > 0) {
+//                $cartId = $result->fetch_assoc()['cart_id'];
+//            } else {
+//                // User does not have an active shopping cart
+//                return false;
+//            }
+
+            // Get the current quantity of the sneaker in the shopping cart
+            $sql = "SELECT * FROM cart_items WHERE sneaker_id = ? AND size = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("id", $sneakerId, $size);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $newQuantity = $row['quantity'] - 1;
+                if ($newQuantity == 0) {
+                    // If new quantity is 0, remove the item from the shopping cart
+                    $sql = "DELETE FROM cart_items WHERE sneaker_id = ? AND size = ?";
+                    $stmt = $this->conn->prepare($sql);
+                    $stmt->bind_param("id", $sneakerId, $size);
+                    $stmt->execute();
+                } else {
+                    // If new quantity is not 0, update the quantity in the shopping cart
+                    $sql = "UPDATE cart_items SET quantity = ? WHERE sneaker_id = ? AND size = ?";
+                    $stmt = $this->conn->prepare($sql);
+                    $stmt->bind_param("iid", $newQuantity, $sneakerId, $size);
+                    $stmt->execute();
+                }
+            } else {
+                // Sneaker is not in the shopping cart
+                return false;
+            }
+
+            return true;
+        } catch (Exception $e) {
+            // Handle database errors here
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
+    }
+
 
 
 

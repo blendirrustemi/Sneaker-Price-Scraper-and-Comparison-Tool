@@ -18,4 +18,8 @@ class ShoppingCartService
     }
 
 
+    public function removeShoppingCartItem($user_id, $sneaker_id, $size) {
+        return $this->db->removeShoppingCartItem($user_id, $sneaker_id, $size);
+    }
+
 }
