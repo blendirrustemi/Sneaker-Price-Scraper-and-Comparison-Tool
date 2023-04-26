@@ -2,7 +2,6 @@
 
 ##	Anyone – Role 1
 ### Main page – Sneakers
-### Visualization Page – Shows the difference of sneaker prices in graphs…
 ### Signup/Login
 
 ## User Profile – Role 2
