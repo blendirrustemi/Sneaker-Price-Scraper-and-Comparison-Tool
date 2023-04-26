@@ -119,6 +119,34 @@ class Database
         return $result->fetch_assoc();
     }
 
+    public function removeUser($user_id) {
+        $this->conn->query("SET FOREIGN_KEY_CHECKS = 0");
+//        $stmt = $this->conn->prepare("DELETE FROM orders WHERE user_id = ?");
+//        $stmt->bind_param("i", $user_id);
+//        $stmt->execute();
+
+        $stmt1 = $this->conn->prepare("DELETE FROM users WHERE user_id = ?");
+        $stmt2 = $this->conn->prepare("DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM shopping_carts WHERE user_id = ?)");
+        $stmt3 = $this->conn->prepare("DELETE FROM shopping_carts WHERE user_id = ?");
+        $stmt4 = $this->conn->prepare("DELETE FROM user_roles WHERE user_id = ?");
+
+// Bind the parameter to each statement
+        $stmt1->bind_param("i", $user_id);
+        $stmt2->bind_param("i", $user_id);
+        $stmt3->bind_param("i", $user_id);
+        $stmt4->bind_param("i", $user_id);
+
+// Execute the statements
+        $stmt1->execute();
+        $stmt2->execute();
+        $stmt3->execute();
+        $stmt4->execute();
+
+        $this->conn->query("SET FOREIGN_KEY_CHECKS = 1");
+    }
+
+
+
 
 
     // Shopping cart table functions

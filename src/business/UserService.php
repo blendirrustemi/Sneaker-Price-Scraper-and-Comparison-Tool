@@ -32,4 +32,8 @@ class UserService
         return $this->db->getUserRole($id);
     }
 
+    public function removeUser($id) {
+        return $this->db->removeUser($id);
+    }
+
 }
