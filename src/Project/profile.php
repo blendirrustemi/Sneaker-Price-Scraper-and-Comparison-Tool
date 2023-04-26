@@ -5,13 +5,21 @@ require_once '../../bootstrap.php';
 global $sneakerService;
 global $userService;
 
+$successChange = $_SESSION["successChange"];
+$failChange = $_SESSION["failChange"];
+
+if($successChange){
+    $successMsg = '<h3 class="text-success text-center">Password Changed Successfully!<h3>';
+}elseif($failChange){
+    $failMsg = '<h5 class="text-danger text-center"><b>Enter your Old Password Correctly!</b><h5>';
+}
+
 $getUserDataResult = $userService->getUserByEmail($_SESSION['email']);
 
 if ($getUserDataResult) {
     $_SESSION["user"] = $getUserDataResult;
-}else{
-
 }
+
 ?>
 <html lang="en">
 <head>
@@ -52,11 +60,16 @@ require $path . 'scripts/inc/navNSearch.php';
                 <input type="password" id="confirmNewPass" name="confirmNewPass">
                 <p id="noMatchAlert" class="hidden">Passwords Do Not Match!</p>
                 <p id="confirmPasswordAlert" class="hidden">Please Confirm Your Password!</p>
+                <input type="hidden" name="email" value='<?php echo $_SESSION['user']['email'] ?>'>
+
                 <div class="d-flex justify-content-center w-100 flex-column">
                     <button type="submit" class="btn btn-success">Save Changes</button>
                 </div>
             </form>
+            <?php echo $successMsg?>
+            <?php echo $failMsg?>
         </div>
+
         <div id="profileButtons">
             <button type='button' class="btn btn-success">View My Cart</button>
             <button type='button' id="changePassBtn" class="btn btn-danger" onclick="passwordChange()">Change Password</button>
@@ -65,5 +78,28 @@ require $path . 'scripts/inc/navNSearch.php';
     </div>
     <script src="./scripts/js/functions.js"></script>
     <script src="scripts/js/script.js"></script>
+
+    <script>
+        document.getElementById("myProfileFormChangePass").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            var oldPassword = document.getElementById("oldPass").value;
+            var newPassword = document.getElementById("newPass").value;
+            var confirmPassword = document.getElementById("confirmNewPass").value;
+
+            if (newPassword.length < 8) {
+                alert("New password should be at least 8 characters long.");
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                alert("New password and confirm password do not match.");
+                return;
+            }
+
+            // Proceed with submitting the form
+            document.getElementById("myProfileFormChangePass").submit();
+        });
+    </script>
 </body>
 </html>

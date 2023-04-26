@@ -36,4 +36,12 @@ class UserService
         return $this->db->removeUser($id);
     }
 
+    public function updateUser($id, $name, $surname, $email) {
+        return $this->db->updateUser($id, $name, $surname, $email);
+    }
+
+    public function updateUserPassword($id, $password) {
+        return $this->db->updateUserPassword($id, $password);
+    }
+
 }

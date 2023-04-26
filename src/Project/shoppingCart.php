@@ -53,8 +53,8 @@ require $path . 'scripts/inc/navNSearch.php';
     </div>
     <div class="cartItems mt-1">
         <?php foreach ($items as $item): ?>
-            <form method="POST" action="">
-                <div class="cartItem">
+            <form method="POST" action="" class="cartItem">
+<!--                <div class="cartItem">-->
                     <img src="<?=$item["image"]?>" width="200px">
                     <div>
                         <h3><?=$item["model"]?></h3>
@@ -65,7 +65,7 @@ require $path . 'scripts/inc/navNSearch.php';
                         <input type="hidden" name="sneaker_size" value="<?=$item['size']?>">
                         <button class="btn btn-danger removeBtn">Remove</button>
                     </div>
-                </div>
+<!--                </div>-->
             </form>
         <?php endforeach; ?>
     </div>

@@ -44,7 +44,7 @@ class Database
         return $result;
     }
 
-    // Sneakers table functions
+    // Sneakers table functions ------------------------------------------------------
     public function getAllSneakers(){
         $result = $this->query("SELECT * FROM sneakers");
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -100,7 +100,7 @@ class Database
     }
 
 
-    // Users table functions
+    // Users table functions ------------------------------------------------------
     public function getAllUsers(){
         $result = $this->query("SELECT * FROM users");
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -152,9 +152,6 @@ class Database
 
     public function removeUser($user_id) {
         $this->conn->query("SET FOREIGN_KEY_CHECKS = 0"); // Disable foreign key checks
-//        $stmt = $this->conn->prepare("DELETE FROM orders WHERE user_id = ?");
-//        $stmt->bind_param("i", $user_id);
-//        $stmt->execute();
 
         $stmt1 = $this->conn->prepare("DELETE FROM users WHERE user_id = ?");
         $stmt2 = $this->conn->prepare("DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM shopping_carts WHERE user_id = ?)");
@@ -176,13 +173,25 @@ class Database
         $this->conn->query("SET FOREIGN_KEY_CHECKS = 1");
     }
 
+    public function updateUser($user_id, $name, $surname, $email) {
+        $stmt = $this->conn->prepare("UPDATE users SET name = ?, surname = ?, email = ? WHERE user_id = ?");
+        $stmt->bind_param("sssi", $name, $surname, $email, $user_id);
+        $stmt->execute();
+    }
+
+    public function updateUserPassword($user_id, $password) {
+        $stmt = $this->conn->prepare("UPDATE users SET password = ? WHERE user_id = ?");
+        $stmt->bind_param("si", $password, $user_id);
+        $stmt->execute();
+    }
 
 
 
 
-    // Shopping cart table functions
+
+    // Shopping cart table functions ------------------------------------------------------
     public function getShoppingCartItems($userId) {
-        $sql = "SELECT ci.cart_id, ci.sneaker_id, ci.quantity, ci.size, s.model, s.price FROM cart_items ci
+        $sql = "SELECT ci.cart_id, ci.sneaker_id, ci.quantity, ci.size, s.model, s.price, s.image FROM cart_items ci
             JOIN shopping_carts sc ON ci.cart_id = sc.cart_id
             JOIN sneakers s ON ci.sneaker_id = s.sneaker_id
             WHERE sc.user_id = ?";
