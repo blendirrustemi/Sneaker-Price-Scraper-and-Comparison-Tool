@@ -15,7 +15,11 @@ $items = $shoppingCartService->getShoppingCartItems($user['user_id']);
 $total_price = 0;
 
 foreach ($items as $item) {
-    $total_price += $item["price"];
+    $total_price += ($item["price"] * $item["quantity"]);
+}
+
+if (isset($_POST['sneaker_id'])){
+    print_r($items);
 }
 ?>
 
@@ -44,16 +48,19 @@ require $path . 'scripts/inc/navNSearch.php';
     </div>
     <div class="cartItems mt-1">
         <?php foreach ($items as $item): ?>
-            <div class="cartItem">
-                <img src="<?=$item["image"]?>" width="200px">
-                <div>
-                    <h3><?=$item["model"]?></h3>
-                    <p>Price: $<?=$item['price']?></p>
-                    <p>Size: <?=$item["size"]?></p>
-                    <p>Quantity: <?=$item['quantity']?></p>
-                    <button class="btn btn-danger removeBtn">Remove</button>
+            <form method="POST" action="">
+                <div class="cartItem">
+                    <img src="<?=$item["image"]?>" width="200px">
+                    <div>
+                        <h3><?=$item["model"]?></h3>
+                        <p>Price: $<?=$item['price']?></p>
+                        <p>Size: <?=$item["size"]?></p>
+                        <p>Quantity: <?=$item['quantity']?></p>
+                        <input type="hidden" name="sneaker_id" value="<?=$item['sneaker_id']?>">
+                        <button class="btn btn-danger removeBtn">Remove</button>
+                    </div>
                 </div>
-            </div>
+            </form>
         <?php endforeach; ?>
     </div>
     <div class="cartHeader">

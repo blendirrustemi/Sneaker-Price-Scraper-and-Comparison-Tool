@@ -16,12 +16,13 @@ $resultSizes = $sneakerService->getSpecificSneaker($id);
 if (isset($_POST["submit"])) {
     $user_id = $_SESSION["user"]["user_id"];
     $sneaker_id = $_POST["sneaker_id"];
-    $quantity = 1;
+    $quantity = $_POST["quantity"];
     $size = $_POST["option"];
 
     // convert all to integer
     $user_id = (int)$user_id;
     $sneaker_id = (int)$sneaker_id;
+    $quantity = (int)$quantity;
     $cart = $shoppingCartService->addShoppingCartItem($user_id, $sneaker_id, $quantity, $size);
 
     if (!$cart) {
@@ -218,6 +219,7 @@ require $path . 'scripts/inc/navNSearch.php';
                 echo '
                             </div>
                         </div>
+                        <input type="number" name="quantity" value="1" min="1" max="10">
                         <h5 class="pt-5">Sneaker Price: $'. $price .'</h5>
                         
                         <div class="pt-4">

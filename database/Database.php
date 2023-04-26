@@ -201,25 +201,78 @@ class Database
 
 
 
+//    public function addShoppingCartItem($userId, $sneakerId, $quantity, $size) {
+//        try {
+//            $sql = "INSERT INTO shopping_carts (user_id) VALUES (?)";
+//            $stmt = $this->conn->prepare($sql);
+//            $stmt->bind_param("i", $userId);
+//            $stmt->execute();
+//
+//            $cartId = $stmt->insert_id;
+//            $sql = "INSERT INTO cart_items (cart_id, sneaker_id, quantity, size) VALUES (?, ?, ?, ?)";
+//            $stmt = $this->conn->prepare($sql);
+//            $stmt->bind_param("iiis", $cartId, $sneakerId, $quantity, $size);
+//            $stmt->execute();
+//
+//            return $stmt->insert_id;
+//        } catch (Exception $e) {
+//            // Handle database errors here
+//            echo "Error: " . $e->getMessage();
+//            return false;
+//        }
+//    }
+
     public function addShoppingCartItem($userId, $sneakerId, $quantity, $size) {
         try {
-            $sql = "INSERT INTO shopping_carts (user_id) VALUES (?)";
+            // Check if the user already has an active shopping cart
+            $sql = "SELECT cart_id FROM shopping_carts WHERE user_id = ?";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("i", $userId);
             $stmt->execute();
+            $result = $stmt->get_result();
+            $cartId = null;
+            if ($result->num_rows > 0) {
+                $cartId = $result->fetch_assoc()['cart_id'];
+            } else {
+                // If user does not have an active shopping cart, create a new one
+                $sql = "INSERT INTO shopping_carts (user_id) VALUES (?)";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->bind_param("i", $userId);
+                $stmt->execute();
+                $cartId = $stmt->insert_id;
+            }
 
-            $cartId = $stmt->insert_id;
-            $sql = "INSERT INTO cart_items (cart_id, sneaker_id, quantity, size) VALUES (?, ?, ?, ?)";
+            // Check if the same sneaker is already in the shopping cart
+            $sql = "SELECT * FROM cart_items WHERE cart_id = ? AND sneaker_id = ?";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("iiis", $cartId, $sneakerId, $quantity, $size);
+            $stmt->bind_param("ii", $cartId, $sneakerId);
             $stmt->execute();
-
-            return $stmt->insert_id;
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                // If the sneaker is already in the shopping cart, update the quantity
+                $row = $result->fetch_assoc();
+                $newQuantity = $row['quantity'] + $quantity;
+                $sql = "UPDATE cart_items SET quantity = ? WHERE cart_id = ? AND sneaker_id = ?";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->bind_param("iii", $newQuantity, $cartId, $sneakerId);
+                $stmt->execute();
+                return $row['id'];
+            } else {
+                // If the sneaker is not in the shopping cart, add a new item
+                $sql = "INSERT INTO cart_items (cart_id, sneaker_id, quantity, size) VALUES (?, ?, ?, ?)";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->bind_param("iiis", $cartId, $sneakerId, $quantity, $size);
+                $stmt->execute();
+                return $stmt->insert_id;
+            }
         } catch (Exception $e) {
             // Handle database errors here
             echo "Error: " . $e->getMessage();
             return false;
         }
     }
+
+
+
 
 }
