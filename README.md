@@ -1,13 +1,7 @@
 # Sneaker Shopping and Price Visualization Website
 
-##	Anyone – Role 1
-### Main page – Sneakers
-### Signup/Login
+##	Database
+### Import the database (Sneaker-Price-Scraper-and-Comparison-Tool/database/SneakerStyleX.sql).
 
-## User Profile – Role 2
-### Shopping Cart – Add/Remove Sneakers
-### Purchase Sneakers Page
-
-## Admin Page – Role 3
-### Manage Users
-### Manage Sneakers
+## User/Admin
+### Admin Email: blendi@gmail.com, Admin Password: blendi321
