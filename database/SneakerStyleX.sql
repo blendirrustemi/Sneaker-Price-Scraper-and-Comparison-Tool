@@ -950,7 +950,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `name`, `surname`, `email`, `password`, `is_admin`) VALUES
 (3, 'Admin', 'User', 'admin@example.com', 'password', 1),
-(10, 'Blendi', 'Rrustemi', 'br3433@g.rit.edu', '3cf64a833a49a8c6e803798fb5608f7149aa540fd51979d9b6f1bcc7df0a8d3e', 1),
+(10, 'Blendi', 'Rrustemi', 'blendi@gmail.com', '3cf64a833a49a8c6e803798fb5608f7149aa540fd51979d9b6f1bcc7df0a8d3e', 1),
 (11, 'Testing', 'test', 'test@gmail.com', '37268335dd6931045bdcdf92623ff819a64244b53d0e746d438797349d4da578', 0),
 (12, 'Michael', 'Jordan', 'mj@23.com', '3cf64a833a49a8c6e803798fb5608f7149aa540fd51979d9b6f1bcc7df0a8d3e', 0),
 (13, 'Erita', 'Cunaku', 'erita@gmail.com', '9d65abec58a70d03d76f1af760f2092c743636d3a1d9ff689dbc1bc1da7e876a', 0);
