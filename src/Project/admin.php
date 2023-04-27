@@ -10,6 +10,11 @@ global $userService;
 $users = $userService->getAllUsers();
 $sneakers = $sneakerService->getAllSneakers();
 
+if ($_SESSION['user']['is_admin'] == 0) {
+    header("Location: ./home.php");
+}
+
+
 
 if (isset($_POST['remove_user'])){
     $user_email = $_POST['user_email'];

@@ -7,6 +7,8 @@ global $shoppingCartService;
 
 if (isset($_SESSION["user"])) {
     $user = $userService->getUserById($_SESSION["user_id"]);
+} else {
+    header("Location: ./home.php");
 }
 
 $order = $shoppingCartService->getOrder($user['user_id']);

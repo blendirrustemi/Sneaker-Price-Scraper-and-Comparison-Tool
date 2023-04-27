@@ -5,6 +5,12 @@ require_once '../../bootstrap.php';
 global $sneakerService;
 global $userService;
 
+if (isset($_SESSION["user"])) {
+    $user = $userService->getUserById($_SESSION["user_id"]);
+} else {
+    header("Location: ./home.php");
+}
+
 $successChange = $_SESSION["successChange"];
 $failChange = $_SESSION["failChange"];
 

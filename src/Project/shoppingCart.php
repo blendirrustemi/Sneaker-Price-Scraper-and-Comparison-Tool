@@ -9,7 +9,10 @@ global $shoppingCartService;
 
 if (isset($_SESSION["user"])) {
     $user = $userService->getUserById($_SESSION["user_id"]);
+} else {
+    header("Location: ./home.php");
 }
+
 
 $items = $shoppingCartService->getShoppingCartItems($user['user_id']);
 $total_price = 0;
