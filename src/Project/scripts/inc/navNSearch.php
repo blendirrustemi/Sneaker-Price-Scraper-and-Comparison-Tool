@@ -1,6 +1,7 @@
 <?php
 require_once '../../bootstrap.php';
 global $userService;
+global $sneakerService;
 
 //$_SESSION['user_id'] = 3;
 $user_id = $_SESSION['user_id'];
@@ -10,6 +11,12 @@ $user_id = $_SESSION['user_id'];
 if ($user_id) {
     $user_role = $userService->getUserRole($user_id);
     $_SESSION['role'] = $user_role['role_name'];
+}
+
+if (isset($_POST['search_sneaker'])){
+    $search_sneaker = $_POST['search_sneaker'];
+    $sneakers = $sneakerService->searchSneakers($search_sneaker);
+    $_SESSION["sneakers"] = $sneakers;
 }
 
 
@@ -42,7 +49,10 @@ if ($user_id) {
         ?>
     </div>
 </nav>
+<form action="" method="POST">
+
 <div id="searchContainer">
-    <input type="text" placeholder="Search For Sneakers">
-    <div id="search"></div>
+        <input type="text" name="search_sneaker" placeholder="Search For Sneakers">
+        <div id="search"></div>
 </div>
+</form>

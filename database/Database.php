@@ -74,6 +74,12 @@ class Database
         return $id;
     }
 
+    public function searchSneakers($search) {
+        $query = "SELECT * FROM sneakers WHERE model LIKE '%".$search."%'";
+        $result = $this->query($query);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
 
     public function removeSneakers($id) {
         $this->conn->query("SET FOREIGN_KEY_CHECKS = 0"); // Disable foreign key checks

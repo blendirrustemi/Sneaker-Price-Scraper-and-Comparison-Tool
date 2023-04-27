@@ -4,7 +4,12 @@ session_start();
 require_once '../../bootstrap.php';
 global $sneakerService;
 
-$sneakers = $sneakerService->getAllSneakers();
+if ($_SESSION['sneakers']){
+    $sneakers = $_SESSION['sneakers'];
+} else {
+    $sneakers = $sneakerService->getAllSneakers();
+    $_SESSION['sneakers'] = $sneakers;
+}
 
 if (!empty($sneakers)) {
     $_SESSION["sneakers"] = $sneakers;

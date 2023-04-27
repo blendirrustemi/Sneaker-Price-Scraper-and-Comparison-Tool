@@ -30,4 +30,8 @@ class SneakerService {
     public function removeSneakers($id) {
         return $this->db->removeSneakers($id);
     }
+
+    public function searchSneakers($search) {
+        return $this->db->searchSneakers($search);
+    }
 }
