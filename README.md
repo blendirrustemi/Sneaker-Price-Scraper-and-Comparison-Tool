@@ -1,4 +1,4 @@
-# Sneaker Shopping and Price Visualization Website
+# Sneaker Shopping Website
 
 ##	Database
 ### Import the database (Sneaker-Price-Scraper-and-Comparison-Tool/database/SneakerStyleX.sql).
