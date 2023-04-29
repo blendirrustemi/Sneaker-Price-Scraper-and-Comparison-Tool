@@ -56,36 +56,57 @@ if (isset($_POST['add_sneaker'])) {
     <title>Admin Panel</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="media/icon.png">
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
 </head>
-<body>
-<h1>Admin Panel</h1>
+<body class="bgBody">
+<div class="adminMain">
+    <h1 class="title">Admin Panel</h1>
+    <div class="userRemoval">
+        <h2>Remove Users</h2>
+        <form method="POST" action="">
+            <div>
+                <label for="user_email">User Email:</label>
+                <input class="adminInput" type="text" name="user_email" id="user_email" required>
+            </div>
+            <button type="submit" name="remove_user" class="btn btn-danger">Remove User</button>
+        </form>
+    </div>
+    <h1 class="title m-4">Add/Remove Sneakers</h1>
+    <div class="adderRemoverParent">
+        <div class="shoeAdder">
+            <h2 class="formTitle">Add Sneakers</h2>
+            <form method="POST" action="" enctype="multipart/form-data">
+                <div>
+                    <label for="sneaker_model">Sneaker Model:</label>
+                    <input class="adminInput" type="text" name="sneaker_model" id="sneaker_model" required>
+                </div>
 
-<h2>Remove Users</h2>
-<form method="POST" action="">
-    <label for="user_email">User Email:</label>
-    <input type="text" name="user_email" id="user_email" required>
-    <button type="submit" name="remove_user">Remove User</button>
-</form>
+                <div>
+                    <label for="sneaker_price">Sneaker Price:</label>
+                    <input class="adminInput btn-danger" type="text" name="sneaker_price" id="sneaker_price" required>
+                </div>
+                <label for="sneaker_image">Sneaker Image:</label>
+                <input type="file" name="sneaker_image" id="sneaker_image" accept="image/*" required>
+                <button  class="btn btn-success mt-4 formBtn" type="submit" name="add_sneaker" id="add_sneaker">Add Sneaker</button>
+            </form>
+        </div>
+        <div class="shoeRemover">
+            <form method="POST" action="">
+                <h2 class="formTitle">Remove Sneakers</h2>
+                <div>
+                    <label for="sneaker_remove_model">Sneaker Model:</label>
+                    <input class="adminInput" type="text" name="sneaker_remove_model" id="sneaker_remove_model" required>
+                </div>
+                <button class="btn btn-danger mt-4 formBtn" type="submit"  name="remove_sneaker" id="remove_sneaker">Remove Sneaker</button>
+            </form>
+        </div>
+    </div>
 
-<h2>Add/Remove Sneakers</h2>
-<form method="POST" action="" enctype="multipart/form-data">
-    <label for="sneaker_model">Sneaker Model:</label>
-    <input type="text" name="sneaker_model" id="sneaker_model" required>
+</div>
 
-    <label for="sneaker_price">Sneaker Price:</label>
-    <input type="text" name="sneaker_price" id="sneaker_price" required>
-
-    <label for="sneaker_image">Sneaker Image:</label>
-    <input type="file" name="sneaker_image" id="sneaker_image" accept="image/*" required>
-
-    <button type="submit" name="add_sneaker" id="add_sneaker">Add Sneaker</button>
-</form>
-
-<form method="POST" action="">
-    <label for="sneaker_remove_model">Sneaker Model:</label>
-    <input type="text" name="sneaker_remove_model" id="sneaker_remove_model" required>
-    <button type="submit" name="remove_sneaker" id="remove_sneaker">Remove Sneaker</button>
-</form>
 
 <script>
     // confirm before removing user

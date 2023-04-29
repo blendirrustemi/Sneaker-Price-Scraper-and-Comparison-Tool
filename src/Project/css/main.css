@@ -1305,6 +1305,132 @@ tr:nth-child(even) {
 
 /* End Shopping Cart CSS */
 
+/* Admin CSS */
+
+.adminMain{
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    color: white;
+    background-color: rgba(255, 255, 255, .2);
+    padding: 2rem;
+}
+
+.userRemoval{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.76);
+    border-radius: 25px;
+    box-shadow: 0 0 20px var(--red);
+    padding: 2rem;
+    max-width: 300px;
+
+}
+.userRemoval form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.userRemoval form *{
+    margin: 0.5rem;
+}
+
+.userRemoval form div *{
+    margin: 2px;
+}
+.adminInput{
+    font-family: var(--roboto);
+    color: var(--white);
+    width: 100%;
+    background: rgba(255, 255, 255, .03);
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid var(--red);
+    outline: none;
+    padding: 8px 8px 0 8px;
+}
+.adderRemoverParent{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.shoeAdder{
+    height: 370px;
+    max-width: 370px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.76);
+    border-radius: 25px;
+    box-shadow: 0 0 20px var(--red);
+    padding: 2rem;
+    margin: 2rem;
+}
+.shoeAdder form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.shoeAdder form div *{
+    margin: 2px;
+}
+.shoeAdder form *{
+    margin: 0.2rem;
+}
+input[type=file]::file-selector-button {
+    margin-right: 20px;
+    border: none;
+    background: #DC3545;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+}
+
+input[type=file]::file-selector-button:hover {
+    background: #0d45a5;
+}
+.formTitle{
+    justify-self: center !important;
+}
+.formBtn{
+    justify-self: center !important;
+}
+.shoeRemover{
+    height: 370px;
+    max-width: 370px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.76);
+    border-radius: 25px;
+    box-shadow: 0 0 20px var(--red);
+    padding: 2rem;
+    margin: 2rem;
+}
+.shoeRemover form{
+    height: 100%;
+    display: grid;
+    align-items: center;
+    flex-direction: column;
+}
+.shoeRemover form div *{
+    margin: 2px;
+}
+
+/* End Admin CSS */
+
 /* CSS Rulesets for Small Screens */
 @media only screen and (max-width: 600px) {
     .login-wrap {
