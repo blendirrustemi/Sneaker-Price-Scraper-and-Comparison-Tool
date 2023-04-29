@@ -1,31 +1,13 @@
--- phpMyAdmin SQL Dump
--- version 5.2.0
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Generation Time: Apr 27, 2023 at 12:32 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
-
+CREATE DATABASE IF NOT EXISTS SneakerStyleX;
+USE SneakerStyleX;
+SET FOREIGN_KEY_CHECKS = 0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `SneakerStyleX`
---
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `cart_items`
---
+
 
 CREATE TABLE `cart_items` (
   `cart_id` int(11) NOT NULL,
@@ -34,7 +16,6 @@ CREATE TABLE `cart_items` (
   `size` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
 
 --
 -- Table structure for table `orders`
@@ -68,9 +49,7 @@ CREATE TABLE `order_items` (
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Dumping data for table `order_items`
---
 
 INSERT INTO `order_items` (`order_id`, `sneaker_id`, `quantity`) VALUES
 (9, 24, 4),
@@ -78,8 +57,6 @@ INSERT INTO `order_items` (`order_id`, `sneaker_id`, `quantity`) VALUES
 (9, 41, 4),
 (9, 59, 1),
 (12, 34, 4);
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `roles`
@@ -90,39 +67,28 @@ CREATE TABLE `roles` (
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Dumping data for table `roles`
---
 
 INSERT INTO `roles` (`role_id`, `name`) VALUES
 (1, 'User'),
 (2, 'Admin');
 
--- --------------------------------------------------------
-
---
 -- Table structure for table `shopping_carts`
---
+
 
 CREATE TABLE `shopping_carts` (
   `cart_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
---
 -- Table structure for table `sizes`
---
 
 CREATE TABLE `sizes` (
   `size_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Dumping data for table `sizes`
---
 
 INSERT INTO `sizes` (`size_id`, `name`) VALUES
 (1, 'US 7'),
@@ -139,11 +105,8 @@ INSERT INTO `sizes` (`size_id`, `name`) VALUES
 (12, 'US 12.5'),
 (13, 'US 13');
 
--- --------------------------------------------------------
-
---
 -- Table structure for table `sneakers`
---
+
 
 CREATE TABLE `sneakers` (
   `sneaker_id` int(11) NOT NULL,
@@ -152,9 +115,7 @@ CREATE TABLE `sneakers` (
   `price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Dumping data for table `sneakers`
---
 
 INSERT INTO `sneakers` (`sneaker_id`, `model`, `image`, `price`) VALUES
 (3, 'Supreme x Air Force 1 Low \'Box Logo - White\'', 'https://image.goat.com/750/attachments/product_template_pictures/images/071/408/055/original/585307_00.png.png', '91.00'),
@@ -215,20 +176,14 @@ INSERT INTO `sneakers` (`sneaker_id`, `model`, `image`, `price`) VALUES
 (60, 'Air Jordan 4 Retro SE GS \'Craft\'', 'https://image.goat.com/750/attachments/product_template_pictures/images/083/862/043/original/1103562_00.png.png', '142.00'),
 (63, 'ue', 'media/aboutSide.jpeg', '19.00');
 
--- --------------------------------------------------------
-
---
 -- Table structure for table `sneaker_sizes`
---
 
 CREATE TABLE `sneaker_sizes` (
   `sneaker_id` int(11) NOT NULL,
   `size_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Dumping data for table `sneaker_sizes`
---
 
 INSERT INTO `sneaker_sizes` (`sneaker_id`, `size_id`) VALUES
 (3, 7),
@@ -929,11 +884,7 @@ INSERT INTO `sneaker_sizes` (`sneaker_id`, `size_id`) VALUES
 (60, 12),
 (60, 13);
 
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
---
 
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
@@ -944,31 +895,23 @@ CREATE TABLE `users` (
   `is_admin` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0 - false, 1 - true'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Dumping data for table `users`
---
 
 INSERT INTO `users` (`user_id`, `name`, `surname`, `email`, `password`, `is_admin`) VALUES
 (3, 'Admin', 'User', 'admin@example.com', 'password', 1),
 (10, 'Blendi', 'Rrustemi', 'blendi@gmail.com', '3cf64a833a49a8c6e803798fb5608f7149aa540fd51979d9b6f1bcc7df0a8d3e', 1),
-(11, 'Testing', 'test', 'test@gmail.com', '37268335dd6931045bdcdf92623ff819a64244b53d0e746d438797349d4da578', 0),
+(11, 'Mario', 'Stura', 'mario@gmail.com', '37268335dd6931045bdcdf92623ff819a64244b53d0e746d438797349d4da578', 1),
 (12, 'Michael', 'Jordan', 'mj@23.com', '3cf64a833a49a8c6e803798fb5608f7149aa540fd51979d9b6f1bcc7df0a8d3e', 0),
 (13, 'Erita', 'Cunaku', 'erita@gmail.com', '9d65abec58a70d03d76f1af760f2092c743636d3a1d9ff689dbc1bc1da7e876a', 0);
 
--- --------------------------------------------------------
-
---
 -- Table structure for table `user_roles`
---
 
 CREATE TABLE `user_roles` (
   `user_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Dumping data for table `user_roles`
---
 
 INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
 (3, 1),
@@ -976,162 +919,155 @@ INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
 (11, 1),
 (13, 1);
 
---
--- Indexes for dumped tables
---
 
---
+
 -- Indexes for table `cart_items`
---
+
 ALTER TABLE `cart_items`
   ADD PRIMARY KEY (`cart_id`,`sneaker_id`),
   ADD KEY `sneaker_id` (`sneaker_id`);
 
---
 -- Indexes for table `orders`
---
+
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`),
   ADD KEY `user_id` (`user_id`);
 
---
 -- Indexes for table `order_items`
---
+
 ALTER TABLE `order_items`
   ADD PRIMARY KEY (`order_id`,`sneaker_id`),
   ADD KEY `sneaker_id` (`sneaker_id`),
   ADD KEY `idx_sneaker_id` (`sneaker_id`);
 
---
+
 -- Indexes for table `roles`
---
+
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`role_id`);
 
---
+
 -- Indexes for table `shopping_carts`
---
+
 ALTER TABLE `shopping_carts`
   ADD PRIMARY KEY (`cart_id`),
   ADD KEY `user_id` (`user_id`);
 
---
+
 -- Indexes for table `sizes`
---
+
 ALTER TABLE `sizes`
   ADD PRIMARY KEY (`size_id`);
 
---
+
 -- Indexes for table `sneakers`
---
+
 ALTER TABLE `sneakers`
   ADD PRIMARY KEY (`sneaker_id`);
 
---
+
 -- Indexes for table `sneaker_sizes`
---
+
 ALTER TABLE `sneaker_sizes`
   ADD PRIMARY KEY (`sneaker_id`,`size_id`),
   ADD KEY `size_id` (`size_id`);
 
---
+
 -- Indexes for table `users`
---
+
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 
---
+
 -- Indexes for table `user_roles`
---
+
 ALTER TABLE `user_roles`
   ADD PRIMARY KEY (`user_id`,`role_id`),
   ADD KEY `role_id` (`role_id`);
 
---
--- AUTO_INCREMENT for dumped tables
---
 
---
+-- AUTO_INCREMENT for dumped tables
+
+
+
 -- AUTO_INCREMENT for table `orders`
---
+
 ALTER TABLE `orders`
   MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
---
+
 -- AUTO_INCREMENT for table `roles`
---
+
 ALTER TABLE `roles`
   MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
---
+
 -- AUTO_INCREMENT for table `shopping_carts`
---
+
 ALTER TABLE `shopping_carts`
   MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
---
+
 -- AUTO_INCREMENT for table `sizes`
---
+
 ALTER TABLE `sizes`
   MODIFY `size_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
---
+
 -- AUTO_INCREMENT for table `sneakers`
---
+
 ALTER TABLE `sneakers`
   MODIFY `sneaker_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
---
+
 -- AUTO_INCREMENT for table `users`
---
+
 ALTER TABLE `users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
---
--- Constraints for dumped tables
---
 
---
+-- Constraints for dumped tables
+
+
+
 -- Constraints for table `cart_items`
---
+
 ALTER TABLE `cart_items`
   ADD CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `shopping_carts` (`cart_id`),
   ADD CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`sneaker_id`) REFERENCES `sneakers` (`sneaker_id`);
 
---
+
 -- Constraints for table `orders`
---
+
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
---
+
 -- Constraints for table `order_items`
---
+
 ALTER TABLE `order_items`
   ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
   ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`sneaker_id`) REFERENCES `sneakers` (`sneaker_id`);
 
---
+
 -- Constraints for table `shopping_carts`
---
+
 ALTER TABLE `shopping_carts`
   ADD CONSTRAINT `shopping_carts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
---
+
 -- Constraints for table `sneaker_sizes`
---
+
 ALTER TABLE `sneaker_sizes`
   ADD CONSTRAINT `sneaker_sizes_ibfk_1` FOREIGN KEY (`sneaker_id`) REFERENCES `sneakers` (`sneaker_id`),
   ADD CONSTRAINT `sneaker_sizes_ibfk_2` FOREIGN KEY (`size_id`) REFERENCES `sizes` (`size_id`);
 
---
+
 -- Constraints for table `user_roles`
---
+
 ALTER TABLE `user_roles`
   ADD CONSTRAINT `user_roles_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `user_roles_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`);
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SET FOREIGN_KEY_CHECKS = 1;
