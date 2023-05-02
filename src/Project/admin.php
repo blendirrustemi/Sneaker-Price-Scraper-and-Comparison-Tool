@@ -104,6 +104,9 @@ if (isset($_POST['add_sneaker'])) {
             </form>
         </div>
     </div>
+    <div class="backHome">
+        <a href="./home.php" class="btn btn-primary">Back to Home</a>
+    </div>
 
 </div>
 

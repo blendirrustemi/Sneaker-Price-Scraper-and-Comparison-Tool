@@ -1,13 +1,13 @@
 <?php
-session_start();    
-$successRegister = $_SESSION["successRegister"];
-$failLogin = $_SESSION["failLogin"];
-if($successRegister){
-    $successMsg = '<h3 class="text-success text-center">Registration Successfull<h3>';
-}elseif($failLogin){
-    $failMsg = '<h5 class="text-danger text-center"><b>Invalid Email Or Password!</b><h5>';
-}
-session_destroy();
+    session_start();
+    $successRegister = $_SESSION["successRegister"];
+    $failLogin = $_SESSION["failLogin"];
+    if($successRegister){
+        $successMsg = '<h3 class="text-success text-center">Registration Successfull<h3>';
+    }elseif($failLogin){
+        $failMsg = '<h5 class="text-danger text-center"><b>Invalid Email Or Password!</b><h5>';
+    }
+    session_destroy();
 ?>
 <html lang="en">
 <head>
